@@ -108,16 +108,6 @@ func calculateRiskOfChange(impact, likelihood int) int {
 	return 0
 }
 
-// TODO: move to utils
-func commaSeparatedStrToTags(str string) []string {
-	str = strings.TrimSpace(str)
-	if str == "" {
-		return []string{}
-	}
-
-	return strings.Split(str, ",")
-}
-
 func timeParse(value string) (publishDate time.Time, missing bool, err error) {
 	missing = false
 	publishDate = time.Time{}
