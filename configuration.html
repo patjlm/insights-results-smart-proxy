@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Configuration | Insights Results Smart Proxy</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Configuration" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Smart Proxy service for Openshift insights results" />
+<meta property="og:description" content="Smart Proxy service for Openshift insights results" />
+<link rel="canonical" href="https://redhatinsights.github.io/insights-results-smart-proxy/configuration.html" />
+<meta property="og:url" content="https://redhatinsights.github.io/insights-results-smart-proxy/configuration.html" />
+<meta property="og:site_name" content="Insights Results Smart Proxy" />
+<script type="application/ld+json">
+{"headline":"Configuration","description":"Smart Proxy service for Openshift insights results","url":"https://redhatinsights.github.io/insights-results-smart-proxy/configuration.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/insights-results-smart-proxy/assets/css/style.css?v=">
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://redhatinsights.github.io/insights-results-smart-proxy/">Insights Results Smart Proxy</a></h1>
+      
+
+      <h1 class="no_toc" id="configuration">Configuration</h1>
+
+<h2 class="no_toc" id="table-of-contents">Table of contents</h2>
+
+<ol id="markdown-toc">
+  <li><a href="#server-configuration" id="markdown-toc-server-configuration">Server configuration</a></li>
+  <li><a href="#services-configuration" id="markdown-toc-services-configuration">Services configuration</a></li>
+  <li><a href="#ams-client-configuration" id="markdown-toc-ams-client-configuration">AMS client configuration</a></li>
+  <li><a href="#setup-configuration" id="markdown-toc-setup-configuration">Setup configuration</a></li>
+  <li><a href="#metrics-configuration" id="markdown-toc-metrics-configuration">Metrics configuration</a></li>
+  <li><a href="#usage-of-environment-variables" id="markdown-toc-usage-of-environment-variables">Usage of environment variables</a></li>
+</ol>
+
+<p>Configuration is done by <code class="language-plaintext highlighter-rouge">toml</code> config, taking the <code class="language-plaintext highlighter-rouge">config.toml</code> in the working
+directory if no configuration is provided. This can be overriden by
+<code class="language-plaintext highlighter-rouge">INSIGHTS_RESULTS_SMART_PROXY_CONFIG_FILE</code> environment variable.</p>
+
+<h2 id="server-configuration">Server configuration</h2>
+
+<p>Server configuration is in section <code class="language-plaintext highlighter-rouge">[server]</code> in config file.
+The API is currently split into two versions, see the <a href="https://github.com/RedHatInsights/insights-results-smart-proxy/blob/master/server/api/README.md">corresponding README</a></p>
+
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[server]</span>
+<span class="py">address</span> <span class="p">=</span> <span class="s">":8080"</span>
+<span class="py">api_v1_prefix</span> <span class="p">=</span> <span class="s">"/api/v1/"</span>
+<span class="py">api_v2_prefix</span> <span class="p">=</span> <span class="s">"/api/v2/"</span>
+<span class="py">api_v1_spec_file</span> <span class="p">=</span> <span class="s">"server/api/v1/openapi.json"</span>
+<span class="py">api_v2_spec_file</span> <span class="p">=</span> <span class="s">"server/api/v2/openapi.json"</span>
+<span class="py">debug</span> <span class="p">=</span> <span class="kc">true</span>
+<span class="py">auth</span> <span class="p">=</span> <span class="kc">true</span>
+<span class="py">auth_type</span> <span class="p">=</span> <span class="s">"xrh"</span>
+<span class="py">use_https</span> <span class="p">=</span> <span class="kc">false</span>
+<span class="py">enable_cors</span> <span class="p">=</span> <span class="kc">false</span>
+<span class="py">enable_internal_rules_organizations</span> <span class="p">=</span> <span class="kc">false</span>
+<span class="py">internal_rules_organizations</span> <span class="p">=</span> <span class="p">[]</span>
+<span class="py">log_auth_token</span> <span class="p">=</span> <span class="kc">true</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">address</code> is host and port which server should listen to</li>
+  <li><code class="language-plaintext highlighter-rouge">api_v1_prefix</code> is prefix for the REST API V1</li>
+  <li><code class="language-plaintext highlighter-rouge">api_v2_prefix</code> is prefix for the REST API V2</li>
+  <li><code class="language-plaintext highlighter-rouge">api_v1_spec_file</code> is the location of a required OpenAPI specifications file for API V1</li>
+  <li><code class="language-plaintext highlighter-rouge">api_v2_spec_file</code> is the location of a required OpenAPI specifications file for API V2</li>
+  <li><code class="language-plaintext highlighter-rouge">debug</code> is developer mode that enables some special API endpoints not used on production. In
+production, <code class="language-plaintext highlighter-rouge">false</code> is used every time.</li>
+  <li><code class="language-plaintext highlighter-rouge">auth</code> turns on or turns authentication. Please note that this option can be set to <code class="language-plaintext highlighter-rouge">false</code> only
+in devel environment. In production, <code class="language-plaintext highlighter-rouge">true</code> is used every time.</li>
+  <li><code class="language-plaintext highlighter-rouge">auth_type</code> set type of auth, it means which header to use for auth <code class="language-plaintext highlighter-rouge">x-rh-identity</code> or
+<code class="language-plaintext highlighter-rouge">Authorization</code>. Can be used only with <code class="language-plaintext highlighter-rouge">auth = true</code>. Possible options: <code class="language-plaintext highlighter-rouge">jwt</code>, <code class="language-plaintext highlighter-rouge">xrh</code></li>
+  <li><code class="language-plaintext highlighter-rouge">use_https</code> enable or disable the usage of SSL transport for the HTTP server</li>
+  <li><code class="language-plaintext highlighter-rouge">enable_cors</code> enable or disable the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">CORS
+headers</a></li>
+  <li><code class="language-plaintext highlighter-rouge">enable_internal_rules_organizations</code> allows enabling the access to the static
+content for internal rules for configured organizations (by <code class="language-plaintext highlighter-rouge">OrgID</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">internal_rules_organizations</code> defines the list of organizations who can
+access to the internal rules content</li>
+  <li><code class="language-plaintext highlighter-rouge">log_auth_token</code> enable or disable logging about the auth token used for
+identify the user performing requests to this service</li>
+</ul>
+
+<p>Please note that if <code class="language-plaintext highlighter-rouge">auth</code> configuration option is turned off, not all REST API endpoints will be
+usable. Whole REST API schema is satisfied only for <code class="language-plaintext highlighter-rouge">auth = true</code>.</p>
+
+<h2 id="services-configuration">Services configuration</h2>
+
+<p>Services configuration is in section <code class="language-plaintext highlighter-rouge">[services]</code> in the configuration file.</p>
+
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[services]</span>
+<span class="py">aggregator</span> <span class="p">=</span> <span class="s">"http://localhost:8080/api/v1/"</span>
+<span class="py">content</span> <span class="p">=</span> <span class="s">"http://localhost:8082/api/v1/"</span>
+<span class="py">groups_poll_time</span> <span class="p">=</span> <span class="s">"60s"</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">aggregator</code> is the base endpoint to the Insights Results Aggregator service
+to be used</li>
+  <li><code class="language-plaintext highlighter-rouge">content</code> is the base endpoint to the Insights Content Service to be used</li>
+  <li><code class="language-plaintext highlighter-rouge">groups_poll_time</code> is the time between polls to the content service to
+retrieve updated static content, like groups or rule contents</li>
+</ul>
+
+<p>The <code class="language-plaintext highlighter-rouge">groups_poll_time</code> must be configured as an string that can be parsed by the
+function <a href="https://golang.org/pkg/time/#ParseDuration"><code class="language-plaintext highlighter-rouge">time.ParseDuration</code></a> from
+Golang standard library.</p>
+
+<h2 id="ams-client-configuration">AMS client configuration</h2>
+
+<p>Smart Proxy is able to retrieve organizations information from the
+<a href="https://api.openshift.com/?urls.primaryName=Accounts%20management%20service">AMS API</a>.
+In order to do that, it needs to be configured with valid API URL and credentials.</p>
+
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[amsclient]</span>
+<span class="py">client_id</span> <span class="p">=</span> <span class="s">"Red Hat SSO client ID"</span>
+<span class="py">client_secret</span> <span class="p">=</span> <span class="s">"Corresponding client secret"</span>
+<span class="py">token</span> <span class="p">=</span> <span class="s">"a valid token"</span>
+<span class="py">url</span> <span class="p">=</span> <span class="s">"https://api.openshift.com"</span>
+<span class="py">page_size</span> <span class="p">=</span> <span class="mi">100</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">client_id</code> and <code class="language-plaintext highlighter-rouge">client_secret</code> are optionals, but if any of them is defined, the other one should be
+defined too. They indicate the pair of credentials used by the client to connect to the API</li>
+  <li><code class="language-plaintext highlighter-rouge">token</code> is optional. If defined, the client will use that offline token to retrieve valid credentials in
+order to connect to the AMS API</li>
+  <li><code class="language-plaintext highlighter-rouge">url</code> indicates the base URL for the AMS API</li>
+  <li><code class="language-plaintext highlighter-rouge">page_size</code> is optional and defaults to 100. Defines the size of every page of results from the API</li>
+</ul>
+
+<p>In order to use the AMS API, the client needs some of the credentials defined above. If both
+<code class="language-plaintext highlighter-rouge">client_id</code>/<code class="language-plaintext highlighter-rouge">client_secret</code> and <code class="language-plaintext highlighter-rouge">token</code> are defined at the same time, <code class="language-plaintext highlighter-rouge">client_id</code>/<code class="language-plaintext highlighter-rouge">client_secret</code> pair
+takes precedence over <code class="language-plaintext highlighter-rouge">token</code>.</p>
+
+<h2 id="setup-configuration">Setup configuration</h2>
+
+<p>TBD</p>
+
+<h2 id="metrics-configuration">Metrics configuration</h2>
+
+<p>Metrics configuration is in section <code class="language-plaintext highlighter-rouge">[metrics]</code> in config file</p>
+
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[metrics]</span>
+<span class="py">namespace</span> <span class="p">=</span> <span class="s">"mynamespace"</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">namespace</code> if defined, it is used as <code class="language-plaintext highlighter-rouge">Namespace</code> argument when creating all
+the Prometheus metrics exposed by this service.</li>
+</ul>
+
+<h2 id="usage-of-environment-variables">Usage of environment variables</h2>
+
+<p>In order to avoid using a configuration file or to override some of the
+configured values in it, the environment variables can be used.</p>
+
+<p>Every configuration explained before in this document can be overriden by its
+corresponding environment variable.</p>
+
+<p>For example, if you have a configuration that includes the following:</p>
+
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[server]</span>
+<span class="py">address</span> <span class="p">=</span> <span class="s">":8080"</span>
+<span class="py">auth</span> <span class="p">=</span> <span class="kc">false</span>
+</code></pre></div></div>
+
+<p>and you want to override the address for the HTTP server you can export
+<code class="language-plaintext highlighter-rouge">INSIGHTS_RESULTS_SMART_PROXY__SERVER__ADDRESS</code> variable, and its value will
+override the <code class="language-plaintext highlighter-rouge">toml</code> file one.</p>
+
+<p>For example:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">INSIGHTS_RESULTS_SMART_PROXY__SERVER__ADDRESS</span><span class="o">=</span><span class="s2">":443"</span>
+<span class="nv">INSIGHTS_RESULTS_SMART_PROXY__SERVER__AUTH</span><span class="o">=</span><span class="s2">"true"</span>
+</code></pre></div></div>
+
+<p>will result on the server listens on port 443 and use TLS transport.</p>
+
+<p>All the environment variables must have the <code class="language-plaintext highlighter-rouge">INSIGHTS_RESULTS_SMART_PROXY</code>
+preffix, followed by the section name and the configuration paramater, both in
+upper case. The characters <code class="language-plaintext highlighter-rouge">__</code> should be used as separater between the preffix,
+the section name and the configuration parameter in each variable name.</p>
+
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="https://github.com/RedHatInsights/insights-results-smart-proxy/edit/gh-pages/configuration.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+    
+  </body>
+</html>

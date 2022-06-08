@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Interface with OCM UI | Insights Results Smart Proxy</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Interface with OCM UI" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Smart Proxy service for Openshift insights results" />
+<meta property="og:description" content="Smart Proxy service for Openshift insights results" />
+<link rel="canonical" href="https://redhatinsights.github.io/insights-results-smart-proxy/ocm_interface.html" />
+<meta property="og:url" content="https://redhatinsights.github.io/insights-results-smart-proxy/ocm_interface.html" />
+<meta property="og:site_name" content="Insights Results Smart Proxy" />
+<script type="application/ld+json">
+{"headline":"Interface with OCM UI","description":"Smart Proxy service for Openshift insights results","url":"https://redhatinsights.github.io/insights-results-smart-proxy/ocm_interface.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/insights-results-smart-proxy/assets/css/style.css?v=">
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://redhatinsights.github.io/insights-results-smart-proxy/">Insights Results Smart Proxy</a></h1>
+      
+
+      <h1 id="interface-with-ocm-ui">Interface with OCM UI</h1>
+
+<p>Insights Advisor integration components utilize two different APIs:</p>
+
+<ol>
+  <li>
+    <p>Smart Proxy API (based on Insights Results Aggregator) and accessed via 3scale.</p>
+  </li>
+  <li>
+    <p>Account Management Service API (part of so-called OpenShift API).</p>
+  </li>
+</ol>
+
+<h2 id="url-to-cluster-view-in-ocm-ui">URL to cluster view in OCM UI</h2>
+
+<p>Two forms of URL are supported:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">https://console.redhat.com/openshift/details/s/${subscription_ID}#insights</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://console.redhat.com/openshift/details/${cluster_UUID}#insights</code></li>
+</ol>
+
+<p>For example:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">https://console.redhat.com/openshift/details/s/1vrdKPiixrT4OxjPHNae0GSGXAj#insights</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://console.redhat.com/openshift/details/019bd8fb-a470-444f-9ad4-2e798972ee62#insights</code></li>
+</ol>
+
+<blockquote>
+  <p><strong><em>NOTE:</em></strong>  Please note that the example cluster might not exists anymore.</p>
+</blockquote>
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="https://github.com/RedHatInsights/insights-results-smart-proxy/edit/gh-pages/ocm_interface.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+    
+  </body>
+</html>

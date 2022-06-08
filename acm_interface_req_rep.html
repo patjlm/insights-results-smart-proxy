@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Interface with ACM | Insights Results Smart Proxy</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Interface with ACM" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Smart Proxy service for Openshift insights results" />
+<meta property="og:description" content="Smart Proxy service for Openshift insights results" />
+<link rel="canonical" href="https://redhatinsights.github.io/insights-results-smart-proxy/acm_interface_req_rep.html" />
+<meta property="og:url" content="https://redhatinsights.github.io/insights-results-smart-proxy/acm_interface_req_rep.html" />
+<meta property="og:site_name" content="Insights Results Smart Proxy" />
+<script type="application/ld+json">
+{"headline":"Interface with ACM","description":"Smart Proxy service for Openshift insights results","url":"https://redhatinsights.github.io/insights-results-smart-proxy/acm_interface_req_rep.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/insights-results-smart-proxy/assets/css/style.css?v=">
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://redhatinsights.github.io/insights-results-smart-proxy/">Insights Results Smart Proxy</a></h1>
+      
+
+      <h1 id="interface-with-acm">Interface with ACM</h1>
+
+<h2 id="step-1-request-from-acm-to-smart-proxy-via-3scale">Step #1: request from ACM to Smart Proxy via 3Scale</h2>
+
+<p><img src="acm_interface_req_rep_1.png" alt="Request made with list of clusters" title="Request made with list of clusters" /></p>
+
+<h2 id="step-2-request-handling-by-3scale">Step #2: request handling by 3Scale</h2>
+
+<p><img src="acm_interface_req_rep_2.png" alt="3Scale adds rh-identity header" title="3Scale adds rh-identity header" /></p>
+
+<h2 id="step-3-processing-request-by-smart-proxy">Step #3: processing request by Smart Proxy</h2>
+
+<p><img src="acm_interface_req_rep_3.png" alt="Smart proxy gather organization ID from rh-identity header" title="Smart proxy gather organization ID from rh-identity header" /></p>
+
+<h2 id="step-4-processing-request-by-insights-results-aggregator">Step #4: processing request by Insights Results Aggregator</h2>
+
+<p><img src="acm_interface_req_rep_4.png" alt="Request is made to Insights Results Aggregator" title="Request is made into Insights Results Aggregator" /></p>
+
+<h2 id="step-5-returning-response-to-acm">Step #5: returning response to ACM</h2>
+
+<p><img src="acm_interface_req_rep_5.png" alt="Response with map of results is returned into ACM" title="Response with map of results is returned into ACM" /></p>
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="https://github.com/RedHatInsights/insights-results-smart-proxy/edit/gh-pages/acm_interface_req_rep.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+    
+  </body>
+</html>

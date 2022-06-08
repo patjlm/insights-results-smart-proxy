@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<!--
+ Copyright 2022 Red Hat, Inc
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<html>
+<head>
+<title>utils_test.go</title>
+<meta charset="utf-8"/>
+<style type="text/css">body {
+    background: rgb(225, 225, 225);
+    margin: 0px;
+    padding: 0px;
+}
+
+#docgo p {
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 15px;
+    margin-left: 0px;
+}
+
+#docgo div {
+    display: inline;
+}
+
+#docgo #background {
+    position: fixed;
+    top: 0; left: 525px; right: 0; bottom: 0;
+    background: rgb(47, 47, 47);
+    border-left: 1px solid #e5e5ee;
+    z-index: -1;
+}
+
+#docgo .keyword {
+    color: rgb(250, 200, 100);
+}
+
+#docgo .literal {
+    color: rgb(140, 190, 100);
+}
+
+#docgo .ident {
+    color: white;
+}
+
+#docgo .operator {
+    color: white;
+}
+
+#docgo .comment {
+}
+
+#docgo h1, h2, h3, h4, h5 {
+    text-align: left;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 15px;
+    margin-left: 0px;
+}
+
+#docgo h1 {
+    margin-top: 40px;
+}
+
+#docgo .doc {
+    vertical-align: top;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
+    font-size: 15px;
+    line-height: 22px;
+    color: black;
+    min-width: 450px;
+    max-width: 450px;
+    padding-top: 10px;
+    padding-right: 25px;
+    padding-bottom: 1px;
+    padding-left: 50px;
+    overflow-x: hidden;
+}
+
+#docgo .code {
+    min-width: 650px;
+    max-width: 650px;
+    padding-left: 25px;
+    padding-right: 15px;
+    border-left: 1px;
+    overflow-x: hidden;
+    vertical-align: top;
+}
+
+#docgo .code pre code  {
+    font-size: 12px;
+    line-height: 18px;
+    font-family: Menlo, Monaco, Consolas, "Lucida Console", monospace;
+    color: rgb(120, 120, 120);
+}
+</style>
+</head>
+<body>
+<div id="docgo">
+  <div id="background"></div>
+  <table>
+    <thead><tr><th class="doc"><h1>utils_test.go</h1></th><th class="code"></th></tr></thead>
+    <tbody>
+      
+      <tr class="section">
+	<td class="doc"><p>Copyright 2021, 2022 Red Hat, Inc</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+
+<pre><code> http://www.apache.org/licenses/LICENSE-2.0
+</code></pre>
+
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p>
+</td>
+	<td class="code"><pre><code><div class="keyword">package</div> <div class="ident">amsclient_test</div><div class="operator"></div>
+
+<div class="keyword">import</div> <div class="operator">(</div>
+	<div class="literal">&#34;time&#34;</div><div class="operator"></div>
+
+	<div class="ident">jwt</div> <div class="literal">&#34;github.com/golang-jwt/jwt/v4&#34;</div><div class="operator"></div>
+	<div class="ident">ocmtesting</div> <div class="literal">&#34;github.com/openshift-online/ocm-sdk-go/testing&#34;</div><div class="operator"></div>
+<div class="operator">)</div><div class="operator"></div>
+
+<div class="keyword">func</div> <div class="ident">MakeTokenObject</div><div class="operator">(</div><div class="ident">claims</div> <div class="ident">jwt</div><div class="operator">.</div><div class="ident">MapClaims</div><div class="operator">)</div> <div class="operator">*</div><div class="ident">jwt</div><div class="operator">.</div><div class="ident">Token</div> <div class="operator">{</div>
+	<div class="ident">merged</div> <div class="operator">:=</div> <div class="ident">jwt</div><div class="operator">.</div><div class="ident">MapClaims</div><div class="operator">{</div><div class="operator">}</div><div class="operator"></div>
+	<div class="keyword">for</div> <div class="ident">name</div><div class="operator">,</div> <div class="ident">value</div> <div class="operator">:=</div> <div class="keyword">range</div> <div class="ident">ocmtesting</div><div class="operator">.</div><div class="ident">MakeClaims</div><div class="operator">(</div><div class="operator">)</div> <div class="operator">{</div>
+		<div class="ident">merged</div><div class="operator">[</div><div class="ident">name</div><div class="operator">]</div> <div class="operator">=</div> <div class="ident">value</div><div class="operator"></div>
+	<div class="operator">}</div><div class="operator"></div>
+	<div class="keyword">for</div> <div class="ident">name</div><div class="operator">,</div> <div class="ident">value</div> <div class="operator">:=</div> <div class="keyword">range</div> <div class="ident">claims</div> <div class="operator">{</div>
+		<div class="keyword">if</div> <div class="ident">value</div> <div class="operator">==</div> <div class="ident">nil</div> <div class="operator">{</div>
+			<div class="ident">delete</div><div class="operator">(</div><div class="ident">merged</div><div class="operator">,</div> <div class="ident">name</div><div class="operator">)</div><div class="operator"></div>
+		<div class="operator">}</div> <div class="keyword">else</div> <div class="operator">{</div>
+			<div class="ident">merged</div><div class="operator">[</div><div class="ident">name</div><div class="operator">]</div> <div class="operator">=</div> <div class="ident">value</div><div class="operator"></div>
+		<div class="operator">}</div><div class="operator"></div>
+	<div class="operator">}</div><div class="operator"></div>
+
+	<div class="ident">token</div> <div class="operator">:=</div> <div class="ident">jwt</div><div class="operator">.</div><div class="ident">NewWithClaims</div><div class="operator">(</div><div class="ident">jwt</div><div class="operator">.</div><div class="ident">SigningMethodRS256</div><div class="operator">,</div> <div class="ident">merged</div><div class="operator">)</div><div class="operator"></div>
+	<div class="ident">token</div><div class="operator">.</div><div class="ident">Header</div><div class="operator">[</div><div class="literal">&#34;kid&#34;</div><div class="operator">]</div> <div class="operator">=</div> <div class="literal">&#34;123&#34;</div><div class="operator"></div>
+
+	<div class="keyword">var</div> <div class="ident">err</div> <div class="ident">error</div><div class="operator"></div>
+	<div class="ident">token</div><div class="operator">.</div><div class="ident">Raw</div><div class="operator">,</div> <div class="ident">err</div> <div class="operator">=</div> <div class="ident">token</div><div class="operator">.</div><div class="ident">SignedString</div><div class="operator">(</div><div class="ident">jwtPrivateKey</div><div class="operator">)</div><div class="operator"></div>
+	<div class="keyword">if</div> <div class="ident">err</div> <div class="operator">!=</div> <div class="ident">nil</div> <div class="operator">{</div>
+		<div class="ident">panic</div><div class="operator">(</div><div class="ident">err</div><div class="operator">)</div><div class="operator"></div>
+	<div class="operator">}</div><div class="operator"></div>
+	<div class="keyword">return</div> <div class="ident">token</div><div class="operator"></div>
+<div class="operator">}</div><div class="operator"></div>
+
+<div class="keyword">func</div> <div class="ident">MakeTokenString</div><div class="operator">(</div><div class="ident">typ</div> <div class="ident">string</div><div class="operator">,</div> <div class="ident">life</div> <div class="ident">time</div><div class="operator">.</div><div class="ident">Duration</div><div class="operator">)</div> <div class="ident">string</div> <div class="operator">{</div>
+	<div class="ident">token</div> <div class="operator">:=</div> <div class="ident">MakeTokenObject</div><div class="operator">(</div><div class="ident">jwt</div><div class="operator">.</div><div class="ident">MapClaims</div><div class="operator">{</div>
+		<div class="literal">&#34;typ&#34;</div><div class="operator">:</div> <div class="ident">typ</div><div class="operator">,</div>
+		<div class="literal">&#34;exp&#34;</div><div class="operator">:</div> <div class="ident">time</div><div class="operator">.</div><div class="ident">Now</div><div class="operator">(</div><div class="operator">)</div><div class="operator">.</div><div class="ident">Add</div><div class="operator">(</div><div class="ident">life</div><div class="operator">)</div><div class="operator">.</div><div class="ident">Unix</div><div class="operator">(</div><div class="operator">)</div><div class="operator">,</div>
+	<div class="operator">}</div><div class="operator">)</div><div class="operator"></div>
+
+	<div class="keyword">return</div> <div class="ident">token</div><div class="operator">.</div><div class="ident">Raw</div><div class="operator"></div>
+<div class="operator">}</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>Public key in PEM format:</p>
+</td>
+	<td class="code"><pre><code><div class="keyword">const</div> <div class="ident">jwtPublicKeyPEM</div> <div class="operator">=</div> <div class="literal">`
+-----BEGIN PUBLIC KEY-----
+MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAny/9eLVyvEdOkY5ciQGr
+2CAnukSK1MIwNd5re4Im8CfJzqqRREE6cXcbwj0ktcs/h&#43;ahZdx0VbRQVPIs0oPI
+zEYKlhtufxdeq&#43;V2HL&#43;2zILkesY7IL9N0lE4zhj7AnJl3MNu1Ur25StTmqK8b89L
+lINH1DcCARTLhgKYGAUuWsxGYLRZGDfV2bjeAD7ZK8Zk9mPzr9a&#43;SRTsj5XlcGqt
+R6Vh52KFwW1eW13pXaKjOECN15k6AbYVPvRgwxSiK8PzxyFhw&#43;OgtPT8FmjY3I42
+uA47zsD0FbrT2RQ2nNAjsaJQtE61oSfuDCSiJMxytt/kwQd5xzb0XVR5rnJP2X4H
+GSCre9tEN4IB/p/35EcVnEEJ9SaRUxMO7l7/Wv8Ia255xiqLuvK5T14ucMrjoMxG
+kKDhN4NDutQYIBO8a0EPtJeC3/6pgXJadgIbI/5HBTay0b0b6Bco9gtKZN1crpWW
+LABinXKMFZUVmfUmCKruUyqkTmuCXgpFWMjVpF&#43;/o5c5AgMBAAE=
+-----END PUBLIC KEY-----
+`</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>Private key in PEM format:</p>
+</td>
+	<td class="code"><pre><code><div class="keyword">const</div> <div class="ident">jwtPrivateKeyPEM</div> <div class="operator">=</div> <div class="literal">`
+-----BEGIN RSA PRIVATE KEY-----
+MIIG4gIBAAKCAYEAny/9eLVyvEdOkY5ciQGr2CAnukSK1MIwNd5re4Im8CfJzqqR
+REE6cXcbwj0ktcs/h&#43;ahZdx0VbRQVPIs0oPIzEYKlhtufxdeq&#43;V2HL&#43;2zILkesY7
+IL9N0lE4zhj7AnJl3MNu1Ur25StTmqK8b89LlINH1DcCARTLhgKYGAUuWsxGYLRZ
+GDfV2bjeAD7ZK8Zk9mPzr9a&#43;SRTsj5XlcGqtR6Vh52KFwW1eW13pXaKjOECN15k6
+AbYVPvRgwxSiK8PzxyFhw&#43;OgtPT8FmjY3I42uA47zsD0FbrT2RQ2nNAjsaJQtE61
+oSfuDCSiJMxytt/kwQd5xzb0XVR5rnJP2X4HGSCre9tEN4IB/p/35EcVnEEJ9SaR
+UxMO7l7/Wv8Ia255xiqLuvK5T14ucMrjoMxGkKDhN4NDutQYIBO8a0EPtJeC3/6p
+gXJadgIbI/5HBTay0b0b6Bco9gtKZN1crpWWLABinXKMFZUVmfUmCKruUyqkTmuC
+XgpFWMjVpF&#43;/o5c5AgMBAAECggGAFT3JG9dSdQ8qy79sV5fSf2djBbbps5Qp7LY&#43;
+L1/hpEAa7KnT8oCltMhI&#43;vU/tcZmNtMujDILj/gclAkws/KD08Yw2XDVoL3Ukylu
+Rk3KraV1qXBUKX19e&#43;f8pXut2ti7AOdPHcUABvpuEH9Ql7bYhfuylP22FcDZm4sz
+Ell2owUJCxRloxaoQYIqlWvNfMrfZAVYWglUoNna6xn8YLDLaHkIBGEgKfxXD&#43;gL
+IMR39SSgCLnYhKvwT9M6Ki3RqfdelT7SY6WRCHxG2ADm9nbIZQHe7YhNYH7pxtI6
+Mn/HdHaGZK8ggE3WLcD977DYYoYcPif0fQcI&#43;9weGtxiHx32fT1nCWY&#43;NBPZIJK3
+/frU8EERIE71q0dE7ASKdJ/GKJALi&#43;dXe8WgvwH/rvrup7A10XOCtGXhRro5KsnE
+EFaxG5RIGuqMXYyAFGBdrPLA0cNSFfns4Y00JjWZBBgEHJDGs4IrraL5zmilxY41
+gkIiXwSMjil7TCBxRtoBZVyW2s&#43;FAoHBAMotK9510hgjEihwdaKTsh5iRt8Ce6et
+h59kX/7mcQZAwym3I9p4MR0rqs4Ub9brXIym8DMPSdsc0T77S62IhQsGuvrtOu5e
+CfiaMrZSErqrERghlw2NLOjgTfffo/7iDvBz9WKbZvF3zP9LPagNrQFHseRlabk4
+ZTHjCxnI4M6iKHyXUo8ma5bUScOoVQrhLiXi0CEScTmCxFfPes5itFD2ZSUX2&#43;hS
+ltejd/I2zTHL0rjfLLllt1bhJOlUa52iewKBwQDJkQMXoonnwIP14bOLExy2pSNL
+ZM6luOwoAV2T0GgaEO/WP/KDfjjGIWcHISknfG2dulws64IGpkFzWBMHN8Qtx2EJ
+xuiizgtF/Y6Xsw9C81g6BR/pKmzq5pJwnHTlNZ36TxBEdfxP8ZoAR06KrcCmhg6g
+4VKgSYfASm3ARzlmUBx/XtAMtKCY2Z/sbYv4&#43;71duG4pBl2mDvFRydCHU5pFzfkk
+q54TBF7nNGd&#43;plhOoU/ozU8gZBxyC4Oq2zIVSNsCgcBuH1ai0IhET24HiuH4UPyX
+Ii66MA8MkS&#43;rOTA0lm5/2myzXybvS8JswilCIM2eQgriLdft5&#43;jxqWusI5LgDdlx
+3ROhs/ACgERsHgl7V48OEDm6bClr3zbUDcFKP42DOryqam8Ba&#43;YRppCJigEmdXSD
+mvqhjj&#43;c/MPZ/XJBdDJHOvpUitQUVvgJas5W/Wx9BZRuXHHDYdk8Wyb5MXER05&#43;l
+7d&#43;/6ZQFol65TDf8Pa9c7Ul1G1KwFWBcuTuywCHx9dsCgcBy74dt4Lb2OWaFvG9e
+rEVBOKUJhq/2&#43;51dqnmrobjatDGuX8RvinfhMobHH/eRlngC6pNI4fnAxOipVt1y
+zi/FUt1Yb92TiB4RiOXYRrg7GvuCCg4KLLDyuQtjvzNAx/QPGSpTf1uiUkfYRNDa
+bv1ddy&#43;8OP&#43;eeo837LjsXTCz0JaPYocL16uDvQReEpEwJovydwoJxqF74SVl18ha
+gieEClE4wctfWKys9crWAxBztbQVMY0fETbPKRWpRVgnnuUCgcAIOwuuV4r3G/ud
+QeXAbyK5adgv8FYALYWlcBq&#43;fGaEken/5v2BovEw3DpI&#43;6kmypOJxwnSepm5USxE
+0G&#43;aV2Z0xo/di1J6ItALiYMUadS3u2B2KF9jo2id6NeyUJu6ESfVJQAtuRCDiX1y
+6xpiKx6bbWNmIawfGRVs4QC13u5p8sB2lFoA/EfOOj2novfPt1UmkruO/RB0BvvM
+Z71URcGGf4Bt4MltXxrilnRYROs8ZJ2&#43;b294g35k9/FTKWOfTN4=
+-----END RSA PRIVATE KEY-----
+`</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

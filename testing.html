@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Testing | Insights Results Smart Proxy</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Testing" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Smart Proxy service for Openshift insights results" />
+<meta property="og:description" content="Smart Proxy service for Openshift insights results" />
+<link rel="canonical" href="https://redhatinsights.github.io/insights-results-smart-proxy/testing.html" />
+<meta property="og:url" content="https://redhatinsights.github.io/insights-results-smart-proxy/testing.html" />
+<meta property="og:site_name" content="Insights Results Smart Proxy" />
+<script type="application/ld+json">
+{"headline":"Testing","description":"Smart Proxy service for Openshift insights results","url":"https://redhatinsights.github.io/insights-results-smart-proxy/testing.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/insights-results-smart-proxy/assets/css/style.css?v=">
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://redhatinsights.github.io/insights-results-smart-proxy/">Insights Results Smart Proxy</a></h1>
+      
+
+      <h1 class="no_toc" id="testing">Testing</h1>
+
+<h2 class="no_toc text-delta" id="table-of-contents">Table of contents</h2>
+
+<ol id="markdown-toc">
+  <li><a href="#unit-tests" id="markdown-toc-unit-tests">Unit tests</a></li>
+  <li><a href="#check-coverage" id="markdown-toc-check-coverage">Check coverage</a></li>
+</ol>
+
+<p>tl;dr: <code class="language-plaintext highlighter-rouge">make before_commit</code> will run most of the checks by magic, <code class="language-plaintext highlighter-rouge">VERBOSE=true
+make before_commit</code> will do the same but print more information about what it’s
+doing.</p>
+
+<p>The following tests can be run to test your code in
+<code class="language-plaintext highlighter-rouge">insights-results-smart-proxy</code>. Detailed information about each type of test is
+included in the corresponding subsection:</p>
+
+<ol>
+  <li>Unit tests: checks behavior of all units in source code (methods, functions)</li>
+  <li>REST API Tests: test the real REST API of locally deployed application</li>
+  <li>Metrics tests: test whether Prometheus metrics are exposed as expected</li>
+</ol>
+
+<h2 id="unit-tests">Unit tests</h2>
+
+<p>Set of unit tests checks all units of source code. Additionally the code coverage is computed and
+displayed. Code coverage is stored in a file <code class="language-plaintext highlighter-rouge">coverage.out</code> and can be checked by a script named
+<code class="language-plaintext highlighter-rouge">check_coverage.sh</code>.</p>
+
+<p>To run unit tests use the following command:</p>
+
+<p><code class="language-plaintext highlighter-rouge">make test</code></p>
+
+<h2 id="check-coverage">Check coverage</h2>
+
+<p>If you want to check the percentage of code reached by the unit tests, you can
+use <code class="language-plaintext highlighter-rouge">./check_coverage.sh</code> script after running the unit tests.</p>
+
+<p>It will check if the coverage of the code is bellow the threshold.</p>
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="https://github.com/RedHatInsights/insights-results-smart-proxy/edit/gh-pages/testing.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+    
+  </body>
+</html>

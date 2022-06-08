@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<!--
+ Copyright 2022 Red Hat, Inc
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<html>
+<head>
+<title>endpoints_v2.go</title>
+<meta charset="utf-8"/>
+<style type="text/css">body {
+    background: rgb(225, 225, 225);
+    margin: 0px;
+    padding: 0px;
+}
+
+#docgo p {
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 15px;
+    margin-left: 0px;
+}
+
+#docgo div {
+    display: inline;
+}
+
+#docgo #background {
+    position: fixed;
+    top: 0; left: 525px; right: 0; bottom: 0;
+    background: rgb(47, 47, 47);
+    border-left: 1px solid #e5e5ee;
+    z-index: -1;
+}
+
+#docgo .keyword {
+    color: rgb(250, 200, 100);
+}
+
+#docgo .literal {
+    color: rgb(140, 190, 100);
+}
+
+#docgo .ident {
+    color: white;
+}
+
+#docgo .operator {
+    color: white;
+}
+
+#docgo .comment {
+}
+
+#docgo h1, h2, h3, h4, h5 {
+    text-align: left;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 15px;
+    margin-left: 0px;
+}
+
+#docgo h1 {
+    margin-top: 40px;
+}
+
+#docgo .doc {
+    vertical-align: top;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
+    font-size: 15px;
+    line-height: 22px;
+    color: black;
+    min-width: 450px;
+    max-width: 450px;
+    padding-top: 10px;
+    padding-right: 25px;
+    padding-bottom: 1px;
+    padding-left: 50px;
+    overflow-x: hidden;
+}
+
+#docgo .code {
+    min-width: 650px;
+    max-width: 650px;
+    padding-left: 25px;
+    padding-right: 15px;
+    border-left: 1px;
+    overflow-x: hidden;
+    vertical-align: top;
+}
+
+#docgo .code pre code  {
+    font-size: 12px;
+    line-height: 18px;
+    font-family: Menlo, Monaco, Consolas, "Lucida Console", monospace;
+    color: rgb(120, 120, 120);
+}
+</style>
+</head>
+<body>
+<div id="docgo">
+  <div id="background"></div>
+  <table>
+    <thead><tr><th class="doc"><h1>endpoints_v2.go</h1></th><th class="code"></th></tr></thead>
+    <tbody>
+      
+      <tr class="section">
+	<td class="doc"><p>Copyright 2020, 2021 Red Hat, Inc</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+
+<pre><code> http://www.apache.org/licenses/LICENSE-2.0
+</code></pre>
+
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p>
+</td>
+	<td class="code"><pre><code><div class="keyword">package</div> <div class="ident">server</div><div class="operator"></div>
+
+<div class="keyword">import</div> <div class="operator">(</div>
+	<div class="literal">&#34;net/http&#34;</div><div class="operator"></div>
+	<div class="literal">&#34;path/filepath&#34;</div><div class="operator"></div>
+
+	<div class="ident">httputils</div> <div class="literal">&#34;github.com/RedHatInsights/insights-operator-utils/http&#34;</div><div class="operator"></div>
+
+	<div class="literal">&#34;github.com/gorilla/mux&#34;</div><div class="operator"></div>
+	<div class="literal">&#34;github.com/prometheus/client_golang/prometheus/promhttp&#34;</div><div class="operator"></div>
+<div class="operator">)</div><div class="operator"></div>
+
+<div class="keyword">const</div> <div class="operator">(</div>
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>ReportEndpointV2 https://issues.redhat.com/browse/CCXDEV-5097</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">ReportEndpointV2</div> <div class="operator">=</div> <div class="literal">&#34;cluster/{cluster}/reports&#34;</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>ClusterInfoEndpoint provides information about given cluster retrieved from AMS API</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">ClusterInfoEndpoint</div> <div class="operator">=</div> <div class="literal">&#34;cluster/{cluster}/info&#34;</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>ClustersDetail https://issues.redhat.com/browse/CCXDEV-5088</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">ClustersDetail</div> <div class="operator">=</div> <div class="literal">&#34;rule/{rule_selector}/clusters_detail&#34;</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>RecommendationsListEndpoint lists all recommendations with a number of impacted clusters.</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">RecommendationsListEndpoint</div> <div class="operator">=</div> <div class="literal">&#34;rule&#34;</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>ClustersRecommendationsEndpoint returns a list of all clusters, number of impacting rules and number of rules by total risk</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">ClustersRecommendationsEndpoint</div> <div class="operator">=</div> <div class="literal">&#34;clusters&#34;</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>RuleContentV2 https://issues.redhat.com/browse/CCXDEV-5094
+additionally group info is added too
+https://github.com/RedHatInsights/insights-results-smart-proxy/pull/604</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">RuleContentV2</div> <div class="operator">=</div> <div class="literal">&#34;rule/{rule_id}/content&#34;</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>RuleContentWithUserData returns same as RuleContentV2, but includes user-specific data</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">RuleContentWithUserData</div> <div class="operator">=</div> <div class="literal">&#34;rule/{rule_id}&#34;</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>ContentV2 returns all the static content available for the user</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">ContentV2</div> <div class="operator">=</div> <div class="literal">&#34;content&#34;</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>Endpoints to acknowledge rule and to manipulate with
+acknowledgements.</p>
+</td>
+	<td class="code"><pre><code>
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>AckListEndpoint list acks from this account where the rule is
+active. Will return an empty list if this account has no acks.</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">AckListEndpoint</div> <div class="operator">=</div> <div class="literal">&#34;ack&#34;</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>AckGetEndpoint read the acknowledgement info about disabled rule.
+Acks are created, deleted, and queried by Insights rule ID, not
+by their own ack ID.</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">AckGetEndpoint</div> <div class="operator">=</div> <div class="literal">&#34;ack/{rule_id}&#34;</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>AckAcknowledgePostEndpoint acknowledges (and therefore hides) a rule
+from view in an account. If there's already an acknowledgement of
+this rule by this account, then return that. Otherwise, a new ack is
+created.</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">AckAcknowledgePostEndpoint</div> <div class="operator">=</div> <div class="literal">&#34;ack&#34;</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>AckUpdateEndpoint updates an acknowledgement for a rule, by rule ID.
+A new justification can be supplied. The username is taken from the
+authenticated request. The updated ack is returned.</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">AckUpdateEndpoint</div> <div class="operator">=</div> <div class="literal">&#34;ack/{rule_id}&#34;</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>AckDeleteEndpoint deletes an acknowledgement for a rule, by its rule
+ID. If the ack existed, it is deleted and a 204 is returned.
+Otherwise, a 404 is returned.</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">AckDeleteEndpoint</div> <div class="operator">=</div> <div class="literal">&#34;ack/{rule_id}&#34;</div><div class="operator"></div>
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>Rating endpoint will get/modify the vote for a rule id by the user</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">Rating</div> <div class="operator">=</div> <div class="literal">&#34;rating&#34;</div><div class="operator"></div>
+<div class="operator">)</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>addV2EndpointsToRouter adds API V2 specific endpoints to the router</p>
+</td>
+	<td class="code"><pre><code><div class="keyword">func</div> <div class="operator">(</div><div class="ident">server</div> <div class="operator">*</div><div class="ident">HTTPServer</div><div class="operator">)</div> <div class="ident">addV2EndpointsToRouter</div><div class="operator">(</div><div class="ident">router</div> <div class="operator">*</div><div class="ident">mux</div><div class="operator">.</div><div class="ident">Router</div><div class="operator">)</div> <div class="operator">{</div>
+	<div class="ident">apiV2Prefix</div> <div class="operator">:=</div> <div class="ident">server</div><div class="operator">.</div><div class="ident">Config</div><div class="operator">.</div><div class="ident">APIv2Prefix</div><div class="operator"></div>
+	<div class="ident">openAPIv2URL</div> <div class="operator">:=</div> <div class="ident">apiV2Prefix</div> <div class="operator">&#43;</div> <div class="ident">filepath</div><div class="operator">.</div><div class="ident">Base</div><div class="operator">(</div><div class="ident">server</div><div class="operator">.</div><div class="ident">Config</div><div class="operator">.</div><div class="ident">APIv2SpecFile</div><div class="operator">)</div><div class="operator"></div>
+	<div class="ident">aggregatorBaseEndpoint</div> <div class="operator">:=</div> <div class="ident">server</div><div class="operator">.</div><div class="ident">ServicesConfig</div><div class="operator">.</div><div class="ident">AggregatorBaseEndpoint</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>Common REST API endpoints</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">router</div><div class="operator">.</div><div class="ident">HandleFunc</div><div class="operator">(</div><div class="ident">apiV2Prefix</div><div class="operator">&#43;</div><div class="ident">MainEndpoint</div><div class="operator">,</div> <div class="ident">server</div><div class="operator">.</div><div class="ident">mainEndpoint</div><div class="operator">)</div><div class="operator">.</div><div class="ident">Methods</div><div class="operator">(</div><div class="ident">http</div><div class="operator">.</div><div class="ident">MethodGet</div><div class="operator">)</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>Reports endpoints</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">server</div><div class="operator">.</div><div class="ident">addV2ReportsEndpointsToRouter</div><div class="operator">(</div><div class="ident">router</div><div class="operator">,</div> <div class="ident">apiV2Prefix</div><div class="operator">,</div> <div class="ident">aggregatorBaseEndpoint</div><div class="operator">)</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>Content related endpoints</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">server</div><div class="operator">.</div><div class="ident">addV2ContentEndpointsToRouter</div><div class="operator">(</div><div class="ident">router</div><div class="operator">,</div> <div class="ident">apiV2Prefix</div><div class="operator">)</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>Rules related endpoints</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">server</div><div class="operator">.</div><div class="ident">addV2RuleEndpointsToRouter</div><div class="operator">(</div><div class="ident">router</div><div class="operator">,</div> <div class="ident">apiV2Prefix</div><div class="operator">,</div> <div class="ident">aggregatorBaseEndpoint</div><div class="operator">)</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>Prometheus metrics</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">router</div><div class="operator">.</div><div class="ident">Handle</div><div class="operator">(</div><div class="ident">apiV2Prefix</div><div class="operator">&#43;</div><div class="ident">MetricsEndpoint</div><div class="operator">,</div> <div class="ident">promhttp</div><div class="operator">.</div><div class="ident">Handler</div><div class="operator">(</div><div class="operator">)</div><div class="operator">)</div><div class="operator">.</div><div class="ident">Methods</div><div class="operator">(</div><div class="ident">http</div><div class="operator">.</div><div class="ident">MethodGet</div><div class="operator">)</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>OpenAPI specs</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">router</div><div class="operator">.</div><div class="ident">HandleFunc</div><div class="operator">(</div>
+		<div class="ident">openAPIv2URL</div><div class="operator">,</div>
+		<div class="ident">httputils</div><div class="operator">.</div><div class="ident">CreateOpenAPIHandler</div><div class="operator">(</div><div class="ident">server</div><div class="operator">.</div><div class="ident">Config</div><div class="operator">.</div><div class="ident">APIv2SpecFile</div><div class="operator">,</div> <div class="ident">server</div><div class="operator">.</div><div class="ident">Config</div><div class="operator">.</div><div class="ident">Debug</div><div class="operator">,</div> <div class="ident">true</div><div class="operator">)</div><div class="operator">,</div>
+	<div class="operator">)</div><div class="operator">.</div><div class="ident">Methods</div><div class="operator">(</div><div class="ident">http</div><div class="operator">.</div><div class="ident">MethodGet</div><div class="operator">)</div><div class="operator"></div>
+<div class="operator">}</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>addV2ReportsEndpointsToRouter method registers handlers for endpoints that
+return cluster report or reports to client</p>
+</td>
+	<td class="code"><pre><code><div class="keyword">func</div> <div class="operator">(</div><div class="ident">server</div> <div class="operator">*</div><div class="ident">HTTPServer</div><div class="operator">)</div> <div class="ident">addV2ReportsEndpointsToRouter</div><div class="operator">(</div><div class="ident">router</div> <div class="operator">*</div><div class="ident">mux</div><div class="operator">.</div><div class="ident">Router</div><div class="operator">,</div> <div class="ident">apiPrefix</div><div class="operator">,</div> <div class="ident">aggregatorBaseURL</div> <div class="ident">string</div><div class="operator">)</div> <div class="operator">{</div>
+	<div class="ident">router</div><div class="operator">.</div><div class="ident">HandleFunc</div><div class="operator">(</div><div class="ident">apiPrefix</div><div class="operator">&#43;</div><div class="ident">ReportEndpointV2</div><div class="operator">,</div> <div class="ident">server</div><div class="operator">.</div><div class="ident">reportEndpointV2</div><div class="operator">)</div><div class="operator">.</div><div class="ident">Methods</div><div class="operator">(</div><div class="ident">http</div><div class="operator">.</div><div class="ident">MethodGet</div><div class="operator">,</div> <div class="ident">http</div><div class="operator">.</div><div class="ident">MethodOptions</div><div class="operator">)</div><div class="operator"></div>
+	<div class="ident">router</div><div class="operator">.</div><div class="ident">HandleFunc</div><div class="operator">(</div><div class="ident">apiPrefix</div><div class="operator">&#43;</div><div class="ident">ClusterInfoEndpoint</div><div class="operator">,</div> <div class="ident">server</div><div class="operator">.</div><div class="ident">getSingleClusterInfo</div><div class="operator">)</div><div class="operator">.</div><div class="ident">Methods</div><div class="operator">(</div><div class="ident">http</div><div class="operator">.</div><div class="ident">MethodGet</div><div class="operator">)</div><div class="operator"></div>
+	<div class="ident">router</div><div class="operator">.</div><div class="ident">HandleFunc</div><div class="operator">(</div><div class="ident">apiPrefix</div><div class="operator">&#43;</div><div class="ident">RecommendationsListEndpoint</div><div class="operator">,</div> <div class="ident">server</div><div class="operator">.</div><div class="ident">getRecommendations</div><div class="operator">)</div><div class="operator">.</div><div class="ident">Methods</div><div class="operator">(</div><div class="ident">http</div><div class="operator">.</div><div class="ident">MethodGet</div><div class="operator">)</div><div class="operator"></div>
+	<div class="ident">router</div><div class="operator">.</div><div class="ident">HandleFunc</div><div class="operator">(</div><div class="ident">apiPrefix</div><div class="operator">&#43;</div><div class="ident">ClustersRecommendationsEndpoint</div><div class="operator">,</div> <div class="ident">server</div><div class="operator">.</div><div class="ident">getClustersView</div><div class="operator">)</div><div class="operator">.</div><div class="ident">Methods</div><div class="operator">(</div><div class="ident">http</div><div class="operator">.</div><div class="ident">MethodGet</div><div class="operator">)</div><div class="operator"></div>
+<div class="operator">}</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>addV2RuleEndpointsToRouter method registers handlers for endpoints that handle
+rule-related operations (voting etc.)</p>
+</td>
+	<td class="code"><pre><code><div class="keyword">func</div> <div class="operator">(</div><div class="ident">server</div> <div class="operator">*</div><div class="ident">HTTPServer</div><div class="operator">)</div> <div class="ident">addV2RuleEndpointsToRouter</div><div class="operator">(</div><div class="ident">router</div> <div class="operator">*</div><div class="ident">mux</div><div class="operator">.</div><div class="ident">Router</div><div class="operator">,</div> <div class="ident">apiPrefix</div><div class="operator">,</div> <div class="ident">aggregatorBaseEndpoint</div> <div class="ident">string</div><div class="operator">)</div> <div class="operator">{</div>
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>Acknowledgement-related endpoints. Please look into acks<em>handlers.go
+and acks</em>utils.go for more information about these endpoints
+prepared to be compatible with RHEL Insights Advisor.</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">router</div><div class="operator">.</div><div class="ident">HandleFunc</div><div class="operator">(</div><div class="ident">apiPrefix</div><div class="operator">&#43;</div><div class="ident">AckListEndpoint</div><div class="operator">,</div> <div class="ident">server</div><div class="operator">.</div><div class="ident">readAckList</div><div class="operator">)</div><div class="operator">.</div><div class="ident">Methods</div><div class="operator">(</div><div class="ident">http</div><div class="operator">.</div><div class="ident">MethodGet</div><div class="operator">)</div><div class="operator"></div>
+	<div class="ident">router</div><div class="operator">.</div><div class="ident">HandleFunc</div><div class="operator">(</div><div class="ident">apiPrefix</div><div class="operator">&#43;</div><div class="ident">AckGetEndpoint</div><div class="operator">,</div> <div class="ident">server</div><div class="operator">.</div><div class="ident">getAcknowledge</div><div class="operator">)</div><div class="operator">.</div><div class="ident">Methods</div><div class="operator">(</div><div class="ident">http</div><div class="operator">.</div><div class="ident">MethodGet</div><div class="operator">)</div><div class="operator"></div>
+	<div class="ident">router</div><div class="operator">.</div><div class="ident">HandleFunc</div><div class="operator">(</div><div class="ident">apiPrefix</div><div class="operator">&#43;</div><div class="ident">AckAcknowledgePostEndpoint</div><div class="operator">,</div> <div class="ident">server</div><div class="operator">.</div><div class="ident">acknowledgePost</div><div class="operator">)</div><div class="operator">.</div><div class="ident">Methods</div><div class="operator">(</div><div class="ident">http</div><div class="operator">.</div><div class="ident">MethodPost</div><div class="operator">)</div><div class="operator"></div>
+	<div class="ident">router</div><div class="operator">.</div><div class="ident">HandleFunc</div><div class="operator">(</div><div class="ident">apiPrefix</div><div class="operator">&#43;</div><div class="ident">AckUpdateEndpoint</div><div class="operator">,</div> <div class="ident">server</div><div class="operator">.</div><div class="ident">updateAcknowledge</div><div class="operator">)</div><div class="operator">.</div><div class="ident">Methods</div><div class="operator">(</div><div class="ident">http</div><div class="operator">.</div><div class="ident">MethodPut</div><div class="operator">)</div><div class="operator"></div>
+	<div class="ident">router</div><div class="operator">.</div><div class="ident">HandleFunc</div><div class="operator">(</div><div class="ident">apiPrefix</div><div class="operator">&#43;</div><div class="ident">AckDeleteEndpoint</div><div class="operator">,</div> <div class="ident">server</div><div class="operator">.</div><div class="ident">deleteAcknowledge</div><div class="operator">)</div><div class="operator">.</div><div class="ident">Methods</div><div class="operator">(</div><div class="ident">http</div><div class="operator">.</div><div class="ident">MethodDelete</div><div class="operator">)</div><div class="operator"></div>
+	<div class="ident">router</div><div class="operator">.</div><div class="ident">HandleFunc</div><div class="operator">(</div><div class="ident">apiPrefix</div><div class="operator">&#43;</div><div class="ident">Rating</div><div class="operator">,</div> <div class="ident">server</div><div class="operator">.</div><div class="ident">postRating</div><div class="operator">)</div><div class="operator">.</div><div class="ident">Methods</div><div class="operator">(</div><div class="ident">http</div><div class="operator">.</div><div class="ident">MethodPost</div><div class="operator">)</div><div class="operator"></div>
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>Clusters for given recommendation endpoint</p>
+</td>
+	<td class="code"><pre><code>	<div class="ident">router</div><div class="operator">.</div><div class="ident">HandleFunc</div><div class="operator">(</div><div class="ident">apiPrefix</div><div class="operator">&#43;</div><div class="ident">ClustersDetail</div><div class="operator">,</div> <div class="ident">server</div><div class="operator">.</div><div class="ident">getClustersDetailForRule</div><div class="operator">)</div><div class="operator">.</div><div class="ident">Methods</div><div class="operator">(</div><div class="ident">http</div><div class="operator">.</div><div class="ident">MethodGet</div><div class="operator">)</div><div class="operator"></div>
+<div class="operator">}</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+      <tr class="section">
+	<td class="doc"><p>addV2ContentEndpointsToRouter method registers handlers for endpoints that
+returns content to clients</p>
+</td>
+	<td class="code"><pre><code><div class="keyword">func</div> <div class="operator">(</div><div class="ident">server</div> <div class="ident">HTTPServer</div><div class="operator">)</div> <div class="ident">addV2ContentEndpointsToRouter</div><div class="operator">(</div><div class="ident">router</div> <div class="operator">*</div><div class="ident">mux</div><div class="operator">.</div><div class="ident">Router</div><div class="operator">,</div> <div class="ident">apiPrefix</div> <div class="ident">string</div><div class="operator">)</div> <div class="operator">{</div>
+	<div class="ident">router</div><div class="operator">.</div><div class="ident">HandleFunc</div><div class="operator">(</div><div class="ident">apiPrefix</div><div class="operator">&#43;</div><div class="ident">RuleContentV2</div><div class="operator">,</div> <div class="ident">server</div><div class="operator">.</div><div class="ident">getRecommendationContent</div><div class="operator">)</div><div class="operator">.</div><div class="ident">Methods</div><div class="operator">(</div><div class="ident">http</div><div class="operator">.</div><div class="ident">MethodGet</div><div class="operator">)</div><div class="operator"></div>
+	<div class="ident">router</div><div class="operator">.</div><div class="ident">HandleFunc</div><div class="operator">(</div><div class="ident">apiPrefix</div><div class="operator">&#43;</div><div class="ident">RuleContentWithUserData</div><div class="operator">,</div> <div class="ident">server</div><div class="operator">.</div><div class="ident">getRecommendationContentWithUserData</div><div class="operator">)</div><div class="operator">.</div><div class="ident">Methods</div><div class="operator">(</div><div class="ident">http</div><div class="operator">.</div><div class="ident">MethodGet</div><div class="operator">)</div><div class="operator"></div>
+	<div class="ident">router</div><div class="operator">.</div><div class="ident">HandleFunc</div><div class="operator">(</div><div class="ident">apiPrefix</div><div class="operator">&#43;</div><div class="ident">ContentV2</div><div class="operator">,</div> <div class="ident">server</div><div class="operator">.</div><div class="ident">getContentWithGroups</div><div class="operator">)</div><div class="operator">.</div><div class="ident">Methods</div><div class="operator">(</div><div class="ident">http</div><div class="operator">.</div><div class="ident">MethodGet</div><div class="operator">)</div><div class="operator"></div>
+<div class="operator">}</div><div class="operator"></div>
+
+</code></pre></td>
+      </tr>
+      
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

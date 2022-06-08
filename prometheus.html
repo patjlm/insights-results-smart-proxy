@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Prometheus API | Insights Results Smart Proxy</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Prometheus API" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Smart Proxy service for Openshift insights results" />
+<meta property="og:description" content="Smart Proxy service for Openshift insights results" />
+<link rel="canonical" href="https://redhatinsights.github.io/insights-results-smart-proxy/prometheus.html" />
+<meta property="og:url" content="https://redhatinsights.github.io/insights-results-smart-proxy/prometheus.html" />
+<meta property="og:site_name" content="Insights Results Smart Proxy" />
+<script type="application/ld+json">
+{"headline":"Prometheus API","description":"Smart Proxy service for Openshift insights results","url":"https://redhatinsights.github.io/insights-results-smart-proxy/prometheus.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/insights-results-smart-proxy/assets/css/style.css?v=">
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://redhatinsights.github.io/insights-results-smart-proxy/">Insights Results Smart Proxy</a></h1>
+      
+
+      <h1 id="prometheus-api">Prometheus API</h1>
+
+<p>It is possible to use <code class="language-plaintext highlighter-rouge">/metrics</code> REST API endpoint to read all metrics exposed
+to Prometheus or to any tool that is compatible with it.</p>
+
+<h2 id="api-related-metrics">API related metrics</h2>
+
+<p>There are a set of metrics provieded by <code class="language-plaintext highlighter-rouge">insights-operator-utils</code> library, all
+of them related with the API usage. These are the API metrics exposed:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">api_endpoints_requests</code> the total number of requests per endpoint</li>
+  <li><code class="language-plaintext highlighter-rouge">api_endpoints_response_time</code> API endpoints response time</li>
+  <li><code class="language-plaintext highlighter-rouge">api_endpoints_status_codes</code> a counter of the HTTP status code responses
+returned back by the service</li>
+</ol>
+
+<p>Additionally it is possible to consume all metrics provided by Go runtime. There
+metrics start with <code class="language-plaintext highlighter-rouge">go_</code> and <code class="language-plaintext highlighter-rouge">process_</code> prefixes.</p>
+
+<h2 id="metrics-namespace">Metrics namespace</h2>
+
+<p>As explained in the <a href="./configuration">configuration</a> section of this
+documentation, a namespace can be provided in order to act as a prefix to the
+metric name. If no namespace is provided in the configuration, the metrics will
+be exposed as described in this documentation.</p>
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="https://github.com/RedHatInsights/insights-results-smart-proxy/edit/gh-pages/prometheus.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+    
+  </body>
+</html>

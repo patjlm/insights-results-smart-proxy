@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>External Pipeline architecture | Insights Results Smart Proxy</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="External Pipeline architecture" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Smart Proxy service for Openshift insights results" />
+<meta property="og:description" content="Smart Proxy service for Openshift insights results" />
+<link rel="canonical" href="https://redhatinsights.github.io/insights-results-smart-proxy/external_pipeline_arch.html" />
+<meta property="og:url" content="https://redhatinsights.github.io/insights-results-smart-proxy/external_pipeline_arch.html" />
+<meta property="og:site_name" content="Insights Results Smart Proxy" />
+<script type="application/ld+json">
+{"headline":"External Pipeline architecture","description":"Smart Proxy service for Openshift insights results","url":"https://redhatinsights.github.io/insights-results-smart-proxy/external_pipeline_arch.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/insights-results-smart-proxy/assets/css/style.css?v=">
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://redhatinsights.github.io/insights-results-smart-proxy/">Insights Results Smart Proxy</a></h1>
+      
+
+      <h1 id="external-pipeline-architecture">External Pipeline architecture</h1>
+
+<h2 id="sequence-diagrams">Sequence diagrams</h2>
+
+<ul>
+  <li><a href="/insights-results-smart-proxy/data_pipeline_seq_diagram.png">CCX Data pipeline sequence diagram</a></li>
+  <li><a href="io_pulling_crd_seq_diagram.png">IO pulling data + exposing via CRD to OCP WebConsole</a></li>
+</ul>
+
+<h1 id="interface-between-ccx-data-pipeline-and-ocp-webconsole">Interface between CCX data pipeline and OCP WebConsole</h1>
+
+<h3 id="interface-between-ccx-data-pipeline-and-insights-operator">Interface between CCX data pipeline and Insights Operator</h3>
+
+<ul>
+  <li><a href="/insights-results-smart-proxy/io-pulling-only.png">IO pulling data from CCX data pipeline</a></li>
+</ul>
+
+<h3 id="interface-between-insights-operator-and-ocp-webconsole-based-on-crd">Interface between Insights Operator and OCP WebConsole based on CRD</h3>
+
+<ul>
+  <li><a href="/insights-results-smart-proxy/io-pulling.png">IO exposing data via CRD</a></li>
+  <li><a href="/insights-results-smart-proxy/io-pulling-crd-internal.png">IO exposing data via CRD - including internal structure</a></li>
+</ul>
+
+<h3 id="interface-between-insights-operator-and-ocp-webconsole-based-on-prometheus-or-prometheus-metrics">Interface between Insights Operator and OCP WebConsole based on Prometheus or Prometheus metrics</h3>
+
+<ul>
+  <li><a href="/insights-results-smart-proxy/io-pulling-prometheus-metrics.png">IO exposing data via Prometheus metrics</a></li>
+  <li><a href="/insights-results-smart-proxy/io-pulling-prometheus-internal.png">IO exposing data via Prometheus metrics - including internal structure</a></li>
+  <li><a href="/insights-results-smart-proxy/io-pulling-prometheus.png">IO exposing data via Prometheus API</a></li>
+</ul>
+
+<h3 id="animated-versions-of-above-diagrams">Animated versions of above diagrams</h3>
+
+<ul>
+  <li><a href="/insights-results-smart-proxy/io-pulling-only.gif">Animation: IO pulling data from CCX data pipeline</a></li>
+  <li><a href="/insights-results-smart-proxy/io-pulling-prometheus-anim.gif">Animation: IO exposing data via Prometheus metrics</a></li>
+</ul>
+
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="https://github.com/RedHatInsights/insights-results-smart-proxy/edit/gh-pages/external_pipeline_arch.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+    
+  </body>
+</html>
